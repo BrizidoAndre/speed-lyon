@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Typing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, sans-serif;
+        }
+
+        .container {
+            width: 100%; /* Ensures it takes up the available space within its max-width limits */
+            padding-right: 15px; /* Default padding for gutters */
+            padding-left: 15px; /* Default padding for gutters */
+            margin-right: auto; /* Centers the container horizontally */
+            margin-left: auto; /* Centers the container horizontally */
+        }
+
+        #word {
+            margin-left: .25rem;
+            border-right: 4px solid dimgray;
+            animation: blink .5s steps(2, jump-none) infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                border-right-color: transparent;
+            }
+            to {
+                border-right-color: dimgray;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>I am <span id="word"></span></h1>
+</div>
+<script>
+    const texts = ['David Smith', 'Web Developer', 'Web Designer', 'Competitor of Worldskills']
+
+    const word = document.getElementById('word');
+    let isDeleting = false;
+    let textIndex = 0;
+    let charCount = 0;
+    let textSpeed = 0;
+
+    function type() {
+        const currentWord = texts[textIndex];
+        if (isDeleting) {
+            charCount--;
+            textSpeed = 50;
+        } else {
+            charCount++;
+            textSpeed = 100;
+        }
+        word.textContent = currentWord.slice(0, charCount);
+        if (!isDeleting && charCount === currentWord.length) {
+            textSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charCount === 0) {
+            textSpeed = 500;
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+        }
+        setTimeout(type, textSpeed)
+    }
+
+    type();
+</script>
+</body>
+</html>

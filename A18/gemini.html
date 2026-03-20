@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel CSS Puro</title>
+    <style>
+        :root {
+            --carousel-width: 600px;
+            --carousel-height: 400px;
+            --dot-inactive: #bbb;
+            --dot-active: #333;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: sans-serif;
+        }
+
+        /* Container Principal */
+        .carousel-container {
+            position: relative;
+            width: var(--carousel-width);
+            height: var(--carousel-height);
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Scroll Horizontal Suave */
+        .slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Esconde scroll no Firefox */
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none; /* Esconde scroll no Chrome/Safari */
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            scroll-snap-align: center;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Controles Inferiores (Dots) */
+        .dots-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dots-nav a {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--dot-inactive);
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+
+        /* Lógica de Cor dos Botões baseada no estado */
+        /* Nota: Em CSS puro sem JS, usamos :target ou a posição do scroll para feedback visual aproximado */
+        /* Aqui, usamos :target para mudar a cor do botão clicado */
+        #slide-1:target ~ .dots-nav a[href="#slide-1"],
+        #slide-2:target ~ .dots-nav a[href="#slide-2"],
+        #slide-3:target ~ .dots-nav a[href="#slide-3"] {
+            background-color: var(--dot-active);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="carousel-container">
+
+    <div class="slider" tabindex="0">
+        <div class="slide" id="slide-1">
+            <img src="https://picsum.photos/200/300" alt="Imagem 1">
+        </div>
+        <div class="slide" id="slide-2">
+            <img src="https://picsum.photos/200/300" alt="Imagem 2">
+        </div>
+        <div class="slide" id="slide-3">
+            <img src="https://picsum.photos/200/300" alt="Imagem 3">
+        </div>
+
+        <div class="dots-nav">
+            <a href="#slide-1"></a>
+            <a href="#slide-2"></a>
+            <a href="#slide-3"></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
