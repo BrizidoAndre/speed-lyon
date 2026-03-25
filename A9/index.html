@@ -2,65 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Holy Grail</title>
-    <style>
-        body {
-            min-height: 100vh;
-            margin: 0;
-            display: grid;
-            grid-template:
-            "h h h" 50px
-            "l m r" 1fr
-            "f f f" 50px
-        /   1fr 4fr 1fr;
-        }
-
-        @media (max-width: 780px) {
-            body {
-                grid-template:
-                "h" 40px
-                "m" minmax(500px, 1fr)
-                "l" minmax(60px, auto)
-                "r" minmax(60px, auto)
-                "f" 40px
-            / 1fr;
-            }
-        }
-
-        header, aside, main, footer {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            color: white;
-            font-weight: bolder;
-            padding-top: 1rem;
-        }
-
-        header {
-            background: orangered;
-            grid-area: h;
-        }
-
-        aside.left {
-            background: deepskyblue;
-            grid-area: l;
-        }
-
-        aside.right {
-            background: green;
-            grid-area: r;
-        }
-
-        main {
-            background: darkslateblue;
-            grid-area: m;
-        }
-
-        footer {
-            background: deeppink;
-            grid-area: f;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
@@ -74,18 +20,6 @@
 </main>
 <aside class="right">
     RIGHT SIDEBAR
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-    </ul>
 </aside>
 <footer>
     FOOTER
