@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <title>Accessible Website</title>
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -34,14 +34,16 @@
         <div class="introduce-box">
             <div class="tab-box">
                 <div class="tab-button-group">
-                    <div class="tab-button-1 tab-button active" onclick="clickTabMenu(1)">Tab 1</div>
-                    <div class="tab-button-2 tab-button" onclick="clickTabMenu(2)">Tab 2</div>
-                    <div class="tab-button-3 tab-button" onclick="clickTabMenu(3)">Tab 3</div>
+                    <button class="tab-button-1 tab-button active" onclick="clickTabMenu(1)">Tab 1</button>
+                    <button class="tab-button-2 tab-button" onclick="clickTabMenu(2)">Tab 2</button>
+                    <button class="tab-button-3 tab-button" onclick="clickTabMenu(3)">Tab 3</button>
                 </div>
 
                 <div class="tab-contents">
                     <h3>Tab 1 Title</h3>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam ducimus hic officiis placeat tempore voluptates. Autem commodi culpa dolore fugiat illo impedit inventore ipsam nihil, quasi reprehenderit sequi vero.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam ducimus hic officiis
+                    placeat tempore voluptates. Autem commodi culpa dolore fugiat illo impedit inventore ipsam nihil,
+                    quasi reprehenderit sequi vero.
                 </div>
             </div>
         </div>
@@ -52,9 +54,9 @@
         <p>This is the second section of our accessible website.</p>
 
         <div class="gallery-wrapper">
-            <img src="./images/664-500x500.jpg" alt="">
-            <img src="./images/931-500x500.jpg" alt="">
-            <img src="./images/road-g74ff19e1b_1920.jpg" alt="">
+            <img src="./images/664-500x500.jpg" alt="Snowy mountain">
+            <img src="./images/931-500x500.jpg" alt="Foggy mountain">
+            <img src="./images/road-g74ff19e1b_1920.jpg" alt="Wooded streets">
         </div>
     </section>
 
@@ -80,8 +82,12 @@
 
     const clickTabMenu = number => {
         const $contents = document.querySelector(".tab-contents");
-        document.querySelector(".tab-button.active").classList.remove("active");
-        document.querySelector(`.tab-button-${number}`).classList.add("active");
+        const activated = document.querySelector(".tab-button.active")
+        activated.classList.remove("active");
+        activated.ariaSelected = false;
+        const selected = document.querySelector(`.tab-button-${number}`)
+        selected.classList.add("active");
+        selected.ariaSelected = true;
 
 
         const tabHtml = {

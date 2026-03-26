@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rotate</title>
+    <style>
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: blue;
+            transform-origin: left;
+
+            /* A mágica acontece aqui */
+            animation: grow-progress auto linear;
+            animation-timeline: scroll();
+        }
+
+        @keyframes grow-progress {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .custom-scroll {
+            position: absolute;
+            right: 10%;
+            height: 150px;
+            width: 400px;
+            border: 1px solid red;
+            overflow: auto;
+        }
+
+        .image-reveal {
+            opacity: 0;
+            position: absolute;
+            width: 350px;
+            left: 0;
+            bottom: 0;
+
+            animation: reveal linear forwards;
+            /* 'nearest' foca no ancestral mais próximo que rola */
+            animation-timeline: scroll(inline);
+        }
+
+        @keyframes reveal {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="progress-bar"></div>
+    <div class="custom-scroll" id="custom">
+        <ul>
+            <li>1 teste</li>
+            <li>2 teste</li>
+            <li>3 teste</li>
+            <li>4 teste</li>
+            <li>5 teste</li>
+            <li>6 teste</li>
+            <li>7 teste</li>
+            <li>8 teste</li>
+            <li>9 teste</li>
+            <li>10 teste</li>
+            <li>1 teste</li>
+            <li>2 teste</li>
+            <li>3 teste</li>
+            <li>4 teste</li>
+            <li>5 teste</li>
+            <li>6 teste</li>
+            <li>7 teste</li>
+            <li>8 teste</li>
+            <li>9 teste</li>
+            <li>10 teste</li>
+            <li>1 teste</li>
+            <li>2 teste</li>
+            <li>3 teste</li>
+            <li>4 teste</li>
+            <li>5 teste</li>
+            <li>6 teste</li>
+            <li>7 teste</li>
+            <li>8 teste</li>
+            <li>9 teste</li>
+            <li>10 teste</li>
+            <li>1 teste</li>
+            <li>2 teste</li>
+            <li>3 teste</li>
+            <li>4 teste</li>
+            <li>5 teste</li>
+            <li>6 teste</li>
+            <li>7 teste</li>
+            <li>8 teste</li>
+            <li>9 teste</li>
+            <li>10 teste</li>
+        </ul>
+        <img src="image/1.jpg" alt="First image" class="image-reveal">
+    </div>
+    <ul>
+        <li>1 Teste</li>
+        <li>2 Teste</li>
+        <li>3 Teste</li>
+        <li>4 Teste</li>
+        <li>5 Teste</li>
+        <li>6 Teste</li>
+        <li>7 Teste</li>
+        <li>8 Teste</li>
+        <li>9 Teste</li>
+        <li>10 Teste</li>
+        <li>11 Teste</li>
+        <li>12 Teste</li>
+        <li>13 Teste</li>
+        <li>14 Teste</li>
+        <li>15 Teste</li>
+        <li>16 Teste</li>
+        <li>17 Teste</li>
+        <li>18 Teste</li>
+        <li>19 Teste</li>
+        <li>20 Teste</li>
+        <li>21 Teste</li>
+        <li>22 Teste</li>
+        <li>23 Teste</li>
+        <li>24 Teste</li>
+        <li>25 Teste</li>
+        <li>26 Teste</li>
+        <li>27 Teste</li>
+        <li>28 Teste</li>
+        <li>29 Teste</li>
+        <li>30 Teste</li>
+        <li>31 Teste</li>
+        <li>32 Teste</li>
+        <li>33 Teste</li>
+        <li>34 Teste</li>
+        <li>35 Teste</li>
+        <li>36 Teste</li>
+        <li>37 Teste</li>
+        <li>38 Teste</li>
+        <li>39 Teste</li>
+        <li>40 Teste</li>
+        <li>41 Teste</li>
+        <li>42 Teste</li>
+        <li>43 Teste</li>
+        <li>44 Teste</li>
+        <li>45 Teste</li>
+        <li>46 Teste</li>
+        <li>47 Teste</li>
+        <li>48 Teste</li>
+        <li>49 Teste</li>
+        <li>50 Teste</li>
+        <li>51 Teste</li>
+        <li>52 Teste</li>
+        <li>53 Teste</li>
+        <li>54 Teste</li>
+        <li>55 Teste</li>
+        <li>56 Teste</li>
+        <li>57 Teste</li>
+        <li>58 Teste</li>
+        <li>59 Teste</li>
+        <li>60 Teste</li>
+        <li>61 Teste</li>
+        <li>62 Teste</li>
+        <li>63 Teste</li>
+        <li>64 Teste</li>
+        <li>65 Teste</li>
+        <li>66 Teste</li>
+        <li>67 Teste</li>
+        <li>68 Teste</li>
+        <li>69 Teste</li>
+        <li>70 Teste</li>
+        <li>71 Teste</li>
+        <li>72 Teste</li>
+        <li>73 Teste</li>
+        <li>74 Teste</li>
+        <li>75 Teste</li>
+        <li>76 Teste</li>
+        <li>77 Teste</li>
+        <li>78 Teste</li>
+        <li>79 Teste</li>
+        <li>80 Teste</li>
+        <li>81 Teste</li>
+        <li>82 Teste</li>
+        <li>83 Teste</li>
+        <li>84 Teste</li>
+        <li>85 Teste</li>
+        <li>86 Teste</li>
+        <li>87 Teste</li>
+        <li>88 Teste</li>
+        <li>89 Teste</li>
+        <li>90 Teste</li>
+        <li>91 Teste</li>
+        <li>92 Teste</li>
+        <li>93 Teste</li>
+        <li>94 Teste</li>
+        <li>95 Teste</li>
+        <li>96 Teste</li>
+        <li>97 Teste</li>
+        <li>98 Teste</li>
+        <li>99 Teste</li>
+        <li>100 Teste</li>
+        <li>101 Teste</li>
+        <li>102 Teste</li>
+        <li>103 Teste</li>
+        <li>104 Teste</li>
+        <li>105 Teste</li>
+        <li>106 Teste</li>
+        <li>107 Teste</li>
+        <li>108 Teste</li>
+        <li>109 Teste</li>
+        <li>110 Teste</li>
+        <li>111 Teste</li>
+        <li>112 Teste</li>
+        <li>113 Teste</li>
+        <li>114 Teste</li>
+        <li>115 Teste</li>
+        <li>116 Teste</li>
+        <li>117 Teste</li>
+        <li>118 Teste</li>
+        <li>119 Teste</li>
+        <li>120 Teste</li>
+        <li>121 Teste</li>
+        <li>122 Teste</li>
+        <li>123 Teste</li>
+        <li>124 Teste</li>
+        <li>125 Teste</li>
+        <li>126 Teste</li>
+        <li>127 Teste</li>
+        <li>128 Teste</li>
+        <li>129 Teste</li>
+        <li>130 Teste</li>
+        <li>131 Teste</li>
+        <li>132 Teste</li>
+        <li>133 Teste</li>
+        <li>134 Teste</li>
+        <li>135 Teste</li>
+        <li>136 Teste</li>
+        <li>137 Teste</li>
+        <li>138 Teste</li>
+        <li>139 Teste</li>
+        <li>140 Teste</li>
+        <li>141 Teste</li>
+        <li>142 Teste</li>
+        <li>143 Teste</li>
+        <li>144 Teste</li>
+        <li>145 Teste</li>
+        <li>146 Teste</li>
+        <li>147 Teste</li>
+        <li>148 Teste</li>
+        <li>149 Teste</li>
+        <li>150 Teste</li>
+        <li>151 Teste</li>
+        <li>152 Teste</li>
+        <li>153 Teste</li>
+        <li>154 Teste</li>
+        <li>155 Teste</li>
+        <li>156 Teste</li>
+        <li>157 Teste</li>
+        <li>158 Teste</li>
+        <li>159 Teste</li>
+        <li>160 Teste</li>
+        <li>161 Teste</li>
+        <li>162 Teste</li>
+        <li>163 Teste</li>
+        <li>164 Teste</li>
+        <li>165 Teste</li>
+        <li>166 Teste</li>
+        <li>167 Teste</li>
+        <li>168 Teste</li>
+        <li>169 Teste</li>
+        <li>170 Teste</li>
+        <li>171 Teste</li>
+        <li>172 Teste</li>
+        <li>173 Teste</li>
+        <li>174 Teste</li>
+        <li>175 Teste</li>
+        <li>176 Teste</li>
+        <li>177 Teste</li>
+        <li>178 Teste</li>
+        <li>179 Teste</li>
+        <li>180 Teste</li>
+        <li>181 Teste</li>
+        <li>182 Teste</li>
+        <li>183 Teste</li>
+        <li>184 Teste</li>
+        <li>185 Teste</li>
+        <li>186 Teste</li>
+        <li>187 Teste</li>
+        <li>188 Teste</li>
+        <li>189 Teste</li>
+        <li>190 Teste</li>
+        <li>191 Teste</li>
+        <li>192 Teste</li>
+        <li>193 Teste</li>
+        <li>194 Teste</li>
+        <li>195 Teste</li>
+        <li>196 Teste</li>
+        <li>197 Teste</li>
+        <li>198 Teste</li>
+        <li>199 Teste</li>
+        <li>200 Teste</li>
+    </ul>
+</main>
+</body>
+</html>

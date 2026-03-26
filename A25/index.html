@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pizza Graphic</title>
+    <style>
+        @property --degrees {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: true;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+
+        .center {
+            display: grid;
+            place-items: center;
+        }
+
+        .box {
+            width: 300px;
+            aspect-ratio: 1;
+            border: 1px solid gray;
+        }
+
+        .pizza {
+            width: 80%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: conic-gradient(white 0deg, white var(--degrees), red var(--degrees), red calc(var(--degrees) + 170deg), lawngreen calc(var(--degrees) + 170deg), lawngreen calc(var(--degrees) + 240deg), cornflowerblue calc(var(--degrees) + 240deg), cornflowerblue calc(var(--degrees) + 360deg));
+            position: relative;
+            /* 1. Apply transition here for smooth entry AND exit */
+            /* 2. Explicitly transition the custom property */
+            transition: --degrees 1s linear, rotate 1s linear;
+        }
+
+        .pizza::after {
+            content: '';
+            width: 100px;
+            aspect-ratio: 1;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 50%;
+        }
+
+        .box:hover .pizza {
+            --degrees: 360deg;
+            rotate: -360deg;
+        }
+    </style>
+</head>
+<body class="center">
+<div class="box center">
+    <div class="pizza"></div>
+</div>
+</body>
+</html>
