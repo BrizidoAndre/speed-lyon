@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>FireFly</title>
+</head>
+<body>
+<div class="cube-container">
+</div>
+<script>
+    const cubeContainer = document.querySelector('.cube-container');
+    const cubeCount = 5 * 5 * 5;
+    for (let i = 0; i < cubeCount; i++) {
+        const distance = 80;
+        let x = (i % 5) * distance + 'px';
+        let y = Math.floor((i % 25) / 5) * distance + 'px';
+        let z = Math.floor(i / 25) * distance + 'px';
+        cubeContainer.innerHTML += `<div class="cube" style="--z:${z};--y: ${y}; --x:${x};">
+        <div class="side front"></div>
+        <div class="side back"></div>
+        <div class="side right"></div>
+        <div class="side left"></div>
+        <div class="side top"></div>
+        <div class="side bottom"></div>
+    </div>`
+    }
+
+    let clicked = false;
+
+    window.addEventListener('mousedown', (ev) => {
+        clicked = true;
+    })
+    window.addEventListener('mousedown', (ev) => {
+        let {x, y} = ev;
+        xInitial = x;
+        yInitial = y;
+        console.log('help')
+    }, {
+        once: true,
+    })
+
+    function mouseDown() {
+        clicked = false;
+    }
+
+    window.addEventListener('mouseup', mouseDown)
+
+    let xInitial, yInitial;
+    let scaleSize = 1;
+    window.addEventListener('wheel', (ev) => {
+        if (ev.deltaY < 0) {
+            scaleSize += .01;
+        } else {
+            scaleSize += -.01;
+        }
+        cubeContainer.style.scale = scaleSize;
+    })
+
+
+    window.addEventListener('mousemove', (ev) => {
+        let {x, y} = ev;
+        let xDif = (xInitial - x) / 2 * -1;
+        let yDif = (yInitial - y) / 2;
+        if (clicked) {
+            console.log(`Initial: ${xInitial} | Current: ${x} | Dif: ${xDif}`)
+            cubeContainer.style.transform = `rotateX(${yDif}deg) rotateY(${xDif}deg)`;
+        }
+        xInitial = xInitial - x;
+        yInitial = yInitial - y;
+    })
+</script>
+</body>
+</html>

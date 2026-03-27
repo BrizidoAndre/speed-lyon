@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circle 3D</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container-wrapper">
+    <h1 class="title">Press Space Bar or 1-9</h1>
+    <div class="base">
+        <div class="circle" style="color:var(--blue-1); --animation-delay: .1s; --circle-size:10%"></div>
+        <div class="circle" style="color:var(--blue-2); --animation-delay: .2s; --circle-size:20%"></div>
+        <div class="circle" style="color:var(--blue-3); --animation-delay: .3s; --circle-size:30%"></div>
+        <div class="circle" style="color:var(--blue-4); --animation-delay: .4s; --circle-size:40%"></div>
+        <div class="circle" style="color:var(--blue-5); --animation-delay: .5s; --circle-size:50%"></div>
+        <div class="circle" style="color:var(--blue-6); --animation-delay: .6s; --circle-size:60%"></div>
+        <div class="circle" style="color:var(--blue-7); --animation-delay: .7s; --circle-size:70%"></div>
+        <div class="circle" style="color:var(--blue-8); --animation-delay: .8s; --circle-size:80%"></div>
+        <div class="circle" style="color:var(--blue-9); --animation-delay: .9s; --circle-size:90%"></div>
+    </div>
+</div>
+<script>
+    const baseElement = document.querySelector('.base');
+    const circles = document.querySelectorAll('.circle');
+
+    function handlePress(ev) {
+        const {key} = ev;
+        if (key === ' ') {
+            baseElement.classList.toggle('base-side')
+        }
+        const num = parseInt(key);
+        if (num >= 1 && num <= 9) {
+            const circle = circles[key - 1];
+            const isRunning = getComputedStyle(circle).animationPlayState === 'running, running';
+            circle.style.animationPlayState = (isRunning ? 'paused' : 'running') + ', running';
+        }
+    }
+
+    window.addEventListener('keydown', handlePress)
+</script>
+</body>
+</html>

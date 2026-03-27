@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circle 3D</title>
+    <link rel="stylesheet" href="asia-styles.css">
+</head>
+<body>
+<div class="container-wrapper">
+    <div class="base" id="base">
+    </div>
+</div>
+<script>
+    for (let i = 0; i < 50; i++) {
+        base.innerHTML += `<div class="circle" style="--animation-delay: ${Math.abs(i - 50) / 10}s; --circle-size:${i * 2}%;translate: ${i * .5}% -50%"></div>`
+    }
+</script>
+</body>
+</html>

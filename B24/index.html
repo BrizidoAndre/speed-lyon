@@ -8,6 +8,42 @@
     <title>Book list</title>
 </head>
 <body>
+<main>
+    <form action="" id="form-book">
+        <div class="container-input"><label for="title">Book title</label><input type="text" id="title"></div>
+        <div class="container-input"><label for="author">Book Author</label><input type="text" id="author"></div>
+        <div class="container-input"><label for="year">Published Year</label><input type="number" id="year"></div>
+        <button>Add Book</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tbody id="body">
+        </tbody>
+    </table>
+</main>
+<script>
+    const bodyElement = document.getElementById('body');
+    const bookForm = document.getElementById('form-book');
 
+    bookForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        bodyElement.innerHTML += `
+        <tr>
+            <td>${title.value}</td>
+            <td>${author.value}</td>
+            <td>${year.value}</td>
+        </tr>`
+
+        title.value = '';
+        author.value = '';
+        year.value = '';
+    })
+</script>
 </body>
 </html>
