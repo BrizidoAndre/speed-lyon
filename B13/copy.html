@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .circle-map {
+            width: clamp(500px, 80%, 900px);
+            aspect-ratio: 1;
+            position: relative;
+            display: block;
+        }
+
+        .circle {
+            position: absolute;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+
+        .home {
+            background: darkslateblue;
+        }
+
+        .about {
+            background: rebeccapurple;
+        }
+
+        .contact {
+            background: salmon;
+        }
+
+        .map {
+            background: darkgreen;
+        }
+
+        .privacy {
+            background: lightgray;
+        }
+
+    </style>
+</head>
+<body>
+<div class="circle-map">
+
+</div>
+<script>
+    const circleMap = document.querySelector('.circle-map');
+    const texts = ['Home', 'About', 'Contact', 'Map', 'Privacy'];
+
+    /**
+     *
+     * @type {*[{top:Number,left:Number, size:Number}]}
+     */
+    let lastPositions = [];
+
+    function getBetween(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function isIntersecting(x, y, radius) {
+        return lastPositions.some(pos => {
+            const dx = x - pos.x;
+            const dy = y - pos.y;
+            const distance = Math.sqrt(dx ** 2 + dy ** 2);
+            return distance < (radius + pos.radius);
+        })
+    }
+
+    texts.forEach(text => {
+        let x, y, randomSize, radius;
+        do {
+            randomSize = getBetween(100, 250);
+            radius = randomSize / 2;
+            x = getBetween(radius, window.innerWidth - radius);
+            y = getBetween(radius, window.innerHeight - radius);
+        } while (isIntersecting(x, y, radius));
+
+        lastPositions.push({x, y, radius})
+        // creating the element by itself
+        const ball = document.createElement('div');
+        ball.classList.add(text.toLowerCase(), 'circle');
+        ball.textContent = text;
+        ball.style.width = randomSize + 'px';
+        ball.style.top = y - radius + 'px';
+        ball.style.left = x - radius + 'px';
+        circleMap.appendChild(ball);
+    })
+</script>
+</body>
+</html>
