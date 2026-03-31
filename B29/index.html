@@ -9,17 +9,32 @@
     <title>FireFly</title>
 </head>
 <body>
-<div class="cube-container">
+<div class="cube-container" style="transform: rotateX(0deg) rotateY(0deg)">
 </div>
 <script>
     const cubeContainer = document.querySelector('.cube-container');
     const cubeCount = 5 * 5 * 5;
     for (let i = 0; i < cubeCount; i++) {
         const distance = 80;
-        let x = (i % 5) * distance + 'px';
-        let y = Math.floor((i % 25) / 5) * distance + 'px';
-        let z = Math.floor(i / 25) * distance + 'px';
-        cubeContainer.innerHTML += `<div class="cube" style="--z:${z};--y: ${y}; --x:${x};">
+        const middle = 160;
+        let color = '#e35f5f';
+        let x = (i % 5);
+        let y = Math.floor((i % 25) / 5);
+        let z = Math.floor(i / 25);
+        let delay = '1s';
+        let xDifCenter = Math.abs(x - i);
+        const delaysElements = [30, 35, 40, 55, 60, 65, 80, 85, 90];
+        if (delaysElements.includes(xDifCenter) && ![0, 4].includes(x)) {
+            delay = '.5s';
+        }
+        // if cube is center
+        if (y === 2 && z === 2 && x === 2) {
+            delay = '0s';
+        }
+        x = x * distance + middle + 'px';
+        y = y * distance + middle + 'px';
+        z = z * distance - middle + 'px';
+        cubeContainer.innerHTML += `<div class="cube" style="--z:${z};--y: ${y}; --x:${x};--delay: ${delay}; --color: ${color}">
         <div class="side front"></div>
         <div class="side back"></div>
         <div class="side right"></div>
@@ -30,17 +45,17 @@
     }
 
     let clicked = false;
+    let yRotate = 0;
+    let xRotate = 0;
 
     window.addEventListener('mousedown', (ev) => {
         clicked = true;
-    })
-    window.addEventListener('mousedown', (ev) => {
         let {x, y} = ev;
         xInitial = x;
         yInitial = y;
-        console.log('help')
-    }, {
-        once: true,
+
+        const matches = cubeContainer.style.transform;
+        [yRotate, xRotate] = matches.match(/([\d\.])+/g).map(Number);
     })
 
     function mouseDown() {
@@ -53,9 +68,9 @@
     let scaleSize = 1;
     window.addEventListener('wheel', (ev) => {
         if (ev.deltaY < 0) {
-            scaleSize += .01;
+            scaleSize += .02;
         } else {
-            scaleSize += -.01;
+            scaleSize += -.02;
         }
         cubeContainer.style.scale = scaleSize;
     })
@@ -63,14 +78,13 @@
 
     window.addEventListener('mousemove', (ev) => {
         let {x, y} = ev;
-        let xDif = (xInitial - x) / 2 * -1;
-        let yDif = (yInitial - y) / 2;
+        let xDif = (xInitial - x) / 5 * -1;
+        let yDif = (yInitial - y) / 5;
         if (clicked) {
-            console.log(`Initial: ${xInitial} | Current: ${x} | Dif: ${xDif}`)
-            cubeContainer.style.transform = `rotateX(${yDif}deg) rotateY(${xDif}deg)`;
+            let xChange = xRotate + xDif;
+            let yChange = yRotate + yDif;
+            cubeContainer.style.transform = `rotateX(${yChange}deg) rotateY(${xChange}deg)`;
         }
-        xInitial = xInitial - x;
-        yInitial = yInitial - y;
     })
 </script>
 </body>

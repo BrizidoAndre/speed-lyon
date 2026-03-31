@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image editor</title>
+    <style>
+    </style>
+</head>
+<body>
+<img src="shrek.webp" alt="Shrek wathing over us" id="shrek">
+<div>
+    <label for="bright">Brightness</label>
+    <input type="range" name="bright" id="bright" min="0" max="200" value="100">
+    <input type="number" max="200" min="0" id="numberBright" value="100">
+</div>
+<div>
+    <label for="contrast">Contrast</label>
+    <input type="range" name="bright" id="contrast" min="0" max="200" value="100">
+    <input type="number" max="200" min="0" id="numberContrast" value="100">
+</div>
+<div>
+    <label for="hue">Hue</label>
+    <input type="range" name="bright" id="hue" min="0" max="360" value="0">
+    <input type="number" id="numberHue" min="0" max="360" value="0">
+</div>
+<button id="happy">Be happy</button>
+<script>
+    const bright = document.getElementById('bright');
+    const numberBright = document.getElementById('numberBright');
+    const contrast = document.getElementById('contrast');
+    const numberContrast = document.getElementById('numberContrast');
+    const hue = document.getElementById('hue');
+    const numberHue = document.getElementById('numberHue');
+
+    const shrek = document.getElementById('shrek')
+
+    function syncInput(src, target) {
+        target.value = src.value;
+    }
+
+    bright.addEventListener('input', () => syncInput(bright, numberBright))
+    numberBright.addEventListener('input', () => syncInput(numberBright, bright))
+    contrast.addEventListener('input', () => syncInput(contrast, numberContrast))
+    numberContrast.addEventListener('input', () => syncInput(numberContrast, contrast))
+    hue.addEventListener('input', () => syncInput(hue, numberHue))
+    numberHue.addEventListener('input', () => syncInput(numberHue, hue));
+
+    [bright, numberBright, contrast, numberContrast, hue, numberHue].map(entity => {
+        entity.addEventListener('input', () => {
+            shrek.style.filter = `brightness(${bright.value / 100}) contrast(${contrast.value / 100}) hue-rotate(${hue.value}deg)`;
+        })
+    })
+    let happyInterval;
+    happy.addEventListener('click', () => {
+        if (!happyInterval) {
+            let hue = 0;
+            happyInterval = setInterval(() => {
+                hue++;
+                shrek.style.filter = `hue-rotate(${hue}deg)`
+            }, 2)
+        } else {
+            clearInterval(happyInterval)
+            happyInterval = null;
+        }
+    })
+</script>
+</body>
+</html>
