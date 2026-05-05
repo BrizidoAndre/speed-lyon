@@ -32,6 +32,7 @@ for (let i = charsElements.length - 1; i >= 0; i--) {
     const dif = Math.abs(rowIndex - lastIndex) + Math.abs(columnIndex - lastIndex);
     const diagonalDif = Math.abs(rowIndex - columnIndex);
     const waveDif = Math.abs((diagonalDif % 12) - 6) * 5;
+
     element.animate([
         {
             transform: `translateZ(${40 - waveDif}px)`
