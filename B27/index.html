@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sliding Puzzle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="puzzle-grid">
+    <div class="image-container image-container-first" data-row="0" data-column="0">
+        <img class="image-puzzle image-first" src="image.jpg" alt="First part of the image">
+    </div>
+    <div class="image-container image-container-second" data-row="0" data-column="1">
+        <img class="image-puzzle image-second" src="image.jpg" alt="Second part of the image">
+    </div>
+    <div class="image-container image-container-third" data-row="1" data-column="0">
+        <img class="image-puzzle image-third" src="image.jpg" alt="Third part of the image">
+    </div>
+    <div class="image-container image-container-forth" data-row="1" data-column="1">
+
+    </div>
+</div>
+
+<script>
+    const firstImage = document.querySelector('.image-container-first');
+    const secondImage = document.querySelector('.image-container-second');
+    const thirdImage = document.querySelector('.image-container-third');
+    const empty = document.querySelector('.image-container-forth');
+    [firstImage, secondImage, thirdImage].forEach(image => {
+        image.addEventListener('click', (ev) => {
+            const row = parseInt(image.dataset.row);
+            const column = parseInt(image.dataset.column);
+            const emptyRow = parseInt(empty.dataset.row);
+            const emptyColumn = parseInt(empty.dataset.column);
+            const dif = Math.abs(row - emptyRow) + Math.abs(column - emptyColumn);
+            if (dif === 1) {
+                // if row is the same check for column
+                if (row === emptyRow) {
+                    empty.dataset.column = column;
+                    image.dataset.column = emptyColumn;
+                } else {    // if column is the same check for row
+                    empty.dataset.row = row;
+                    image.dataset.row = emptyRow;
+                }
+                image.style.transform = `translate(${image.dataset.column}00%, ${image.dataset.row}00%)`;
+                empty.style.transform = `translate(${empty.dataset.column}00%, ${empty.dataset.row}00%)`;
+            }
+        })
+    })
+</script>
+</body>
+</html>

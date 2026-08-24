@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 150px;
+        }
+
+        #canvas {
+            border: 2px solid black;
+        }
+
+        .example {
+            width: 30px;
+            height: 30px;
+            box-shadow: 0px 0px 0 0 #000000,
+            9000px 900px 0 0 #000000,
+            9000px 2700px 0 0 #000000,
+            8100px 4500px 0 0 #000000,
+            3600px 7200px 0 0 #000000,
+            9900px 10800px 0 0 #000000,
+            13500px 9000px 0 0 #000000,
+            14400px 6300px 0 0 #000000,
+            14400px 900px 0 0 #000000,
+            9000px 5400px 0 0 #000000,
+            10800px 6300px 0 0 #000000,
+            7200px 9900px 0 0 #000000,
+            7200px 9900px 0 0 #000000,
+            5400px 10800px 0 0 #000000,
+            9000px 15300px 0 0 #000000,
+            15300px 13500px 0 0 #000000,
+            15300px 9900px 0 0 #000000,
+            10800px 8100px 0 0 #000000,
+            9900px 9000px 0 0 #000000,
+            6300px 8100px 0 0 #000000,
+            6300px 7200px 0 0 #000000,
+            7200px 15300px 0 0 #ff0a0a,
+            8100px 15300px 0 0 #ff0a0a,
+            13500px 13500px 0 0 #ff0a0a,
+            13500px 12600px 0 0 #ff0a0a,
+            13500px 10800px 0 0 #ff0a0a,
+            12600px 10800px 0 0 #ff0a0a,
+            5400px 5400px 0 0 #ff0a0a, 3600px 5400px 0 0 #ff0a0a;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas">
+
+</canvas>
+<div class="controls">
+    <label for="color">Color</label>
+    <input type="color" name="" id="color">
+    <div>
+        <label for="draw">Draw</label>
+        <input type="radio" name="mode" id="draw" checked>
+    </div>
+    <div>
+        <label for="eraser">Eraser</label>
+        <input type="radio" name="mode" id="eraser">
+    </div>
+    <button id="copy">Copy</button>
+</div>
+<div class="example"></div>
+<script>
+    <!--    getting elements from the HTML -->
+    const color = document.getElementById('color');
+    const draw = document.getElementById('draw');
+    const eraser = document.getElementById('eraser');
+    const copy = document.getElementById('copy');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    // constant
+    const pixelSize = 30;
+    const canvasSide = 20;
+    const canvasPixelCount = canvasSide * canvasSide;
+    const pixels = [];
+
+    let isErasing = false;
+
+    // adding event listeners to elements
+    canvas.addEventListener('click', handleClick);
+    [draw, eraser].forEach(element => element.addEventListener('change', (ev) => {
+        isErasing = eraser.checked;
+    }))
+
+    function start() {
+        startCanvas();
+        drawEmptySquares()
+    }
+
+    function handleClick(ev) {
+        let {x, y} = ev;
+        let bounding = ev.target.getBoundingClientRect();
+        const xCanvas = x - bounding.left;
+        const yCanvas = y - bounding.top;
+        const xPosition = Math.floor(xCanvas / pixelSize);
+        const yPosition = Math.floor(yCanvas / pixelSize);
+        ctx.fillStyle = color.value;
+        drawRect(xPosition, yPosition, isErasing)
+    }
+
+    function startCanvas() {
+        // setting canvas width and height
+        canvas.width = pixelSize * canvasSide;
+        canvas.height = pixelSize * canvasSide;
+        ctx.strokeStyle = 'black';
+        ctx.strokeWidth = 2;
+    }
+
+    function drawEmptySquares() {
+        for (let i = 0; i < canvasPixelCount; i++) {
+            let x = (i % canvasSide);
+            let y = Math.floor(i / canvasSide);
+            drawRect(x, y)
+        }
+    }
+
+    function drawRect(xPosition, yPosition, strokeOnly = true) {
+        const x = xPosition * pixelSize;
+        const y = yPosition * pixelSize
+        if (strokeOnly) {
+            ctx.strokeStyle = 'black';
+            ctx.fillStyle = 'white'
+            ctx.fillRect(x, y, pixelSize, pixelSize)
+            ctx.strokeRect(x, y, pixelSize, pixelSize)
+        } else {
+            pixels.push({
+                x,
+                y,
+                color: color.value,
+            })
+            ctx.fillRect(x, y, pixelSize, pixelSize)
+        }
+    }
+
+    copy.addEventListener('click', async () => {
+        let pixelsBoxShadow = pixels.map(pixel => {
+            return `${pixel.x * pixelSize}px ${pixel.y * pixelSize}px 0 0 ${pixel.color}`;
+        })
+        let cssText = `.pixel-to-css {
+            box-shadow: ${pixelsBoxShadow.join(', ')};
+            width: 20px;
+            height: 20px;
+        }`
+        await navigator.clipboard.writeText(cssText);
+    })
+
+    //     calling the functions
+    start();
+</script>
+</body>
+</html>

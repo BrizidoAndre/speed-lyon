@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container-resize {
+            border: 3px solid black;
+            resize: both;
+            overflow: auto;
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Changed from 300px */
+            height: 100%; /* Changed from 300px */
+            outline: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+<div class="container-resize">
+    <canvas id="canvas">
+
+    </canvas>
+</div>
+<input type="color" name="" id="color">
+<button id="clear">Clear</button>
+<button id="download">Download</button>
+<script>
+    const color = document.getElementById('color')
+    const canvas = document.getElementById('canvas');
+    const clear = document.getElementById('clear');
+    const download = document.getElementById('download');
+    const ctx = canvas.getContext('2d');
+
+    const containerResize = document.querySelector('.container-resize');
+
+    let moves = []
+    let isPainting = false;
+    let offsetY = null;
+    let offsetX = null;
+    let lastResize = null;
+
+
+    function paint(ev) {
+        if (isPainting) {
+            let x = ev.x - offsetX;
+            let y = ev.y - offsetY;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            moves.push({
+                close: false,
+                x: x,
+                y: y,
+                color: ctx.strokeStyle
+            });
+        }
+    }
+
+    function removePath() {
+        ctx.closePath();
+        ctx.beginPath();
+        isPainting = false;
+        moves.push({
+            close: true,
+            x: 0,
+            y: 0,
+            color: "transparent",
+        })
+    }
+
+    function startPath() {
+        const dimensions = canvas.getBoundingClientRect();
+        offsetY = dimensions.y;
+        offsetX = dimensions.x;
+        isPainting = true;
+        ctx.closePath();
+        ctx.beginPath();
+    }
+
+    function drawLast() {
+        moves.forEach(move => {
+            if (move.close) {
+                ctx.closePath();
+                ctx.beginPath();
+            } else {
+                ctx.strokeStyle = move.color;
+                ctx.lineTo(move.x, move.y)
+                ctx.stroke();
+            }
+        })
+    }
+
+    canvas.addEventListener('mousemove', paint)
+    canvas.addEventListener('mouseout', removePath)
+    canvas.addEventListener('mouseup', removePath)
+    canvas.addEventListener('mousedown', startPath)
+
+    color.addEventListener('change', (ev) => {
+        ctx.strokeStyle = ev.target.value;
+    })
+    clear.addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        moves = [];
+    })
+    download.addEventListener('click', () => {
+        const url = canvas.toDataURL('image/png');
+        const node = document.createElement('a');
+        node.href = url;
+        node.download = true;
+        node.click();
+    })
+
+    const resizeObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            const cr = entry.contentRect;
+            canvas.width = cr.width;
+            canvas.height = cr.height;
+
+            ctx.strokeStyle = color.value;
+            clearTimeout(lastResize)
+            lastResize = setTimeout(drawLast, 50)
+        })
+    },)
+    resizeObserver.observe(containerResize)
+
+</script>
+</body>
+</html>

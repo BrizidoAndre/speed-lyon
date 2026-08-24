@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>FireFly</title>
+</head>
+<body>
+<div class="cube-container" style="transform: rotateX(0deg) rotateY(0deg)">
+</div>
+<script>
+    const cubeContainer = document.querySelector('.cube-container');
+    const cubeCount = 5 * 5 * 5;
+    for (let i = 0; i < cubeCount; i++) {
+        const distance = 80;
+        const middle = 160;
+        let color = '#e35f5f';
+        let x = (i % 5);
+        let y = Math.floor((i % 25) / 5);
+        let z = Math.floor(i / 25);
+        let delay = '1s';
+        let xDifCenter = Math.abs(x - i);
+        const delaysElements = [30, 35, 40, 55, 60, 65, 80, 85, 90];
+        if (delaysElements.includes(xDifCenter) && ![0, 4].includes(x)) {
+            delay = '.5s';
+        }
+        // if cube is center
+        if (y === 2 && z === 2 && x === 2) {
+            delay = '0s';
+        }
+        x = x * distance + middle + 'px';
+        y = y * distance + middle + 'px';
+        z = z * distance - middle + 'px';
+        cubeContainer.innerHTML += `<div class="cube" style="--z:${z};--y: ${y}; --x:${x};--delay: ${delay}; --color: ${color}">
+        <div class="side front"></div>
+        <div class="side back"></div>
+        <div class="side right"></div>
+        <div class="side left"></div>
+        <div class="side top"></div>
+        <div class="side bottom"></div>
+    </div>`
+    }
+
+    let clicked = false;
+    let yRotate = 0;
+    let xRotate = 0;
+
+    window.addEventListener('mousedown', (ev) => {
+        clicked = true;
+        let {x, y} = ev;
+        xInitial = x;
+        yInitial = y;
+
+        const matches = cubeContainer.style.transform;
+        [yRotate, xRotate] = matches.match(/([\d\.])+/g).map(Number);
+    })
+
+    function mouseDown() {
+        clicked = false;
+    }
+
+    window.addEventListener('mouseup', mouseDown)
+
+    let xInitial, yInitial;
+    let scaleSize = 1;
+    window.addEventListener('wheel', (ev) => {
+        if (ev.deltaY < 0) {
+            scaleSize += .02;
+        } else {
+            scaleSize += -.02;
+        }
+        cubeContainer.style.scale = scaleSize;
+    })
+
+
+    window.addEventListener('mousemove', (ev) => {
+        let {x, y} = ev;
+        let xDif = (xInitial - x) / 5 * -1;
+        let yDif = (yInitial - y) / 5;
+        if (clicked) {
+            let xChange = xRotate + xDif;
+            let yChange = yRotate + yDif;
+            cubeContainer.style.transform = `rotateX(${yChange}deg) rotateY(${xChange}deg)`;
+        }
+    })
+</script>
+</body>
+</html>

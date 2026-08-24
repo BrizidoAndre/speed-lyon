@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Line Graphic</title>
+    <style>
+        body {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        .svg-website {
+            border: 1px solid black;
+            width: 400px;
+            aspect-ratio: 1;
+        }
+
+        .svg-website circle,
+        .svg-website path {
+            transition: .4s;
+        }
+
+        .svg-website:hover path {
+            d: path("M10 65 L35 25 L65 85 L90 40")
+        }
+
+        .svg-website:hover circle:nth-child(2) {
+            cy: 65%
+        }
+
+        .svg-website:hover circle:nth-child(3) {
+            cy: 25%
+        }
+
+        .svg-website:hover circle:nth-child(4) {
+            cy: 85%
+        }
+
+        .svg-website:hover circle:nth-child(5) {
+            cy: 40%
+        }
+    </style>
+</head>
+<body>
+<svg viewBox="0 0 100 100" class="svg-website">
+    <path d="M10 90 L35 90 L65 90 L90 90" stroke="black" fill="transparent"/>
+    <circle cx="10%" cy="90" r="2" stroke="white"></circle>
+    <circle cx="35%" cy="90" r="2" stroke="white"></circle>
+    <circle cx="65%" cy="90" r="2" stroke="white"></circle>
+    <circle cx="90%" cy="90" r="2" stroke="white"></circle>
+</svg>
+</body>
+</html>

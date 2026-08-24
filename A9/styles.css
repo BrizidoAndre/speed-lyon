@@ -1,0 +1,56 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template:
+            "h h h" 50px
+            "l m r" 1fr
+            "f f f" 50px
+        /   1fr 4fr 1fr;
+}
+
+header, aside, main, footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bolder;
+    padding-top: 1rem;
+}
+
+header {
+    background: orangered;
+    grid-area: h;
+}
+
+aside.left {
+    background: deepskyblue;
+    grid-area: l;
+}
+
+aside.right {
+    background: green;
+    grid-area: r;
+}
+
+main {
+    background: darkslateblue;
+    grid-area: m;
+}
+
+footer {
+    background: deeppink;
+    grid-area: f;
+}
+
+@media screen and (max-width: 900px) {
+    body {
+        grid-template:
+                "h" 40px
+                "m" auto
+                "l" auto
+                "r" auto
+                "f" 40px
+            / 1fr;
+    }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel Clone - Virtual Scroll</title>
+    <style>
+        :root {
+            --cell-width: 100px;
+            --cell-height: 30px;
+            --header-bg: #f3f3f3;
+            --border-color: #ccc;
+        }
+
+        body { margin: 0; font-family: sans-serif; overflow: hidden; }
+
+        /* Container Principal */
+        #grid-container {
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        /* Espaçador para criar a barra de rolagem real */
+        #spacer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* Largura para XFD (16384 colunas) e Altura para 1.048.576 linhas */
+            width: calc(16384 * var(--cell-width));
+            height: calc(1048576 * var(--cell-height));
+            visibility: hidden;
+        }
+
+        /* Viewport onde as células visíveis ficam */
+        #viewport {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+        }
+
+        .cell {
+            position: absolute;
+            width: var(--cell-width);
+            height: var(--cell-height);
+            border: 0.5px solid var(--border-color);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+        }
+
+        .cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            padding: 0 5px;
+            outline-color: #217346;
+        }
+
+        .header {
+            background: var(--header-bg);
+            font-weight: bold;
+            justify-content: center;
+            font-size: 12px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="grid-container">
+    <div id="spacer"></div>
+    <div id="viewport"></div>
+</div>
+
+<script>
+    const ROWS_LIMIT = 1048576;
+    const COLS_LIMIT = 16384; // Até XFD
+    const VISIBLE_ROWS = 35;  // Um pouco mais que 30 para suavizar
+    const VISIBLE_COLS = 22;  // Um pouco mais que 20 para suavizar
+    const CELL_W = 100;
+    const CELL_H = 30;
+
+    const container = document.getElementById('grid-container');
+    const viewport = document.getElementById('viewport');
+    const dataStore = {}; // Armazena dados: "row,col": "valor"
+
+    // Função para converter índice em letras (A, B, C... XFD)
+    function getColLabel(index) {
+        let label = "";
+        while (index >= 0) {
+            label = String.fromCharCode((index % 26) + 65) + label;
+            index = Math.floor(index / 26) - 1;
+        }
+        return label;
+    }
+
+    function render() {
+        viewport.innerHTML = '';
+
+        // Calcula o índice inicial baseado no scroll
+        const startRow = Math.floor(container.scrollTop / CELL_H);
+        const startCol = Math.floor(container.scrollLeft / CELL_W);
+
+        for (let r = 0; r < VISIBLE_ROWS; r++) {
+            for (let c = 0; c < VISIBLE_COLS; c++) {
+                const rowIdx = startRow + r;
+                const colIdx = startCol + c;
+
+                if (rowIdx >= ROWS_LIMIT || colIdx >= COLS_LIMIT) continue;
+
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.style.top = `${rowIdx * CELL_H}px`;
+                cell.style.left = `${colIdx * CELL_W}px`;
+
+                const input = document.createElement('input');
+                const cellId = `${rowIdx},${colIdx}`;
+
+                // Cabeçalhos (Linha 0 ou Coluna 0 poderiam ser fixos, aqui simplificado)
+                input.value = dataStore[cellId] || "";
+
+                input.oninput = (e) => {
+                    dataStore[cellId] = e.target.value;
+                };
+
+                // Placeholder para mostrar a coordenada (opcional)
+                input.placeholder = `${getColLabel(colIdx)}${rowIdx + 1}`;
+
+                cell.appendChild(input);
+                viewport.appendChild(cell);
+            }
+        }
+    }
+
+    // Scroll imediato sem atraso
+    container.addEventListener('scroll', () => {
+        window.requestAnimationFrame(render);
+    });
+
+    // Renderização inicial
+    render();
+</script>
+</body>
+</html>

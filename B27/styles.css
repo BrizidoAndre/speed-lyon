@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.puzzle-grid {
+    position: relative;
+    width: 800px;
+    aspect-ratio: 1;
+    border: 2px solid black;
+}
+
+.image-puzzle {
+    width: 200%;
+    height: 200%;
+    object-fit: cover;
+}
+
+.image-second {
+    position: absolute;
+    right: 0;
+}
+
+.image-third {
+    position: absolute;
+    bottom: 0;
+}
+
+.image-container {
+    width: 50%;
+    height: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.image-container-second {
+    transform: translate(100%, 0);
+}
+
+.image-container-third {
+    transform: translate(0%, 100%);
+}
+
+.image-container-forth {
+    transform: translate(100%, 100%);
+}

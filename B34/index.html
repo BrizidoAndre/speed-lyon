@@ -47,31 +47,8 @@
 
 <button onclick="changeRandomBackground()">change background</button>
 
-<script>
-    const $result = document.getElementById("result");
-    const $progress = document.getElementById("progress");
-    const $number = document.getElementById("number");
-
-    function changeRandomBackground() {
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
-        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-    }
-
-    function sumNumber(n) {
-        let result = 0;
-        for (let i = 1; i <= n; i++) {
-            result += i;
-        }
-        return result;
-    }
-
-    function runCalc(e) {
-        e.preventDefault();
-    }
+<script src="main.js">
 
 </script>
-
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Progress Bar</title>
+    <style>
+        #progress-container {
+            width: 100%;
+            background: #eee;
+            margin-top: 1rem;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 20px;
+            background: #4caf50;
+            transition: .1s;
+        }
+    </style>
+</head>
+<body>
+<input type="file" id="fileInput">
+<button onclick="uploadFile()">Enviar Arquivo</button>
+<div id="progress">
+    <div id="progress-bar"></div>
+</div>
+<p id="status"></p>
+<script src="script.js"></script>
+</body>
+</html>
