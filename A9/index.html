@@ -11,26 +11,14 @@
             grid-template:
             "h h h" 50px
             "l m r" 1fr
-            "f f f" 50px
-        /   1fr 4fr 1fr;
-        }
-
-        @media (max-width: 780px) {
-            body {
-                grid-template:
-                "h" 40px
-                "m" minmax(500px, 1fr)
-                "l" minmax(60px, auto)
-                "r" minmax(60px, auto)
-                "f" 40px
-            / 1fr;
-            }
+            "f f f" 50px;
         }
 
         header, aside, main, footer {
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             color: white;
             font-weight: bolder;
             padding-top: 1rem;
@@ -60,35 +48,36 @@
             background: deeppink;
             grid-area: f;
         }
+
+
+        @media (max-width: 1100px) {
+            body {
+                grid-template:
+                "h" 40px
+                "m" minmax(500px, 1fr)
+                "l" minmax(60px, auto)
+                "r" minmax(60px, auto)
+                "f" 40px;
+            }
+        }
+
     </style>
 </head>
 <body>
 <header>
-    HEADER
+    <p>HEADER</p>
 </header>
 <aside class="left">
-    LEFT SIDEBAR
+    <p>LEFT SIDEBAR</p>
 </aside>
 <main>
-    MAIN CONTENT
+    <p>MAIN CONTENT</p>
 </main>
 <aside class="right">
-    RIGHT SIDEBAR
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-    </ul>
+    <p>RIGHT SIDEBAR</p>
 </aside>
 <footer>
-    FOOTER
+    <p>FOOTER</p>
 </footer>
 </body>
 </html>
